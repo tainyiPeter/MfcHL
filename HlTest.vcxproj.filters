@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Logic">
+      <UniqueIdentifier>{de6af2f4-620e-494c-ab44-411977ed437e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Def">
+      <UniqueIdentifier>{76a6449d-ab3d-4aef-ac1f-21dffecd3f06}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{e6a258c0-b812-4c38-becd-829085d784fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JsonHelper">
+      <UniqueIdentifier>{57ff08fd-4682-467e-8541-ed65dcf212f2}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="HlTest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="HlTestDlg.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="framework.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SEHelper.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+    <ClInclude Include="GuiInterface.h">
+      <Filter>Def</Filter>
+    </ClInclude>
+    <ClInclude Include="HighLightDef.h">
+      <Filter>Def</Filter>
+    </ClInclude>
+    <ClInclude Include="MacroDef.h">
+      <Filter>Def</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonHelper\JsonBuilder.h">
+      <Filter>JsonHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonHelper\JsonParser.h">
+      <Filter>JsonHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\UtilsFile.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\UtilsString.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\UtilsTools.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="ParseDef.h">
+      <Filter>Def</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\AutoBuffer.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\FileHelper.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Convert.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Std.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="LogParser.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="HlTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HlTestDlg.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SEHelper.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonHelper\JsonBuilder.cpp">
+      <Filter>JsonHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonHelper\JsonParser.cpp">
+      <Filter>JsonHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\UtilsFile.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\UtilsString.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\UtilsTools.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\AutoBuffer.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\FileHelper.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\Convert.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="LogParser.cpp">
+      <Filter>Logic</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="HlTest.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\HlTest.rc2">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="res\HlTest.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

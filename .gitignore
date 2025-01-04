@@ -1,0 +1,12 @@
+.vs/
+Debug/
+HlTest/Release/
+libProject/json/Release/json_reader.obj
+*.obj
+*.log
+libProject/json/Release/libjson.vcxproj.FileListAbsolute.txt
+*.tlog
+libProject/json/Release/
+*.pdb
+*.exe
+Release/
