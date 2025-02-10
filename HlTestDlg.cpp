@@ -66,6 +66,7 @@ CHlTestDlg::CHlTestDlg(CWnd* pParent /*=nullptr*/)
 	, m_strOutput(_T(""))
 	, m_strMsg(_T(""))
 	, m_strCustomAction(_T(""))
+	, m_bSaveParam(FALSE)
 {
 	m_hIcon = AfxGetApp()->LoadIcon(IDR_MAINFRAME);
 }
@@ -80,6 +81,7 @@ void CHlTestDlg::DoDataExchange(CDataExchange* pDX)
 	DDX_Text(pDX, IDC_Msg, m_strMsg);
 	DDX_Text(pDX, IDC_edtAction, m_strCustomAction);
 	DDX_Control(pDX, IDC_lstBox, m_lstBox);
+	DDX_Check(pDX, IDC_SaveParam, m_bSaveParam);
 }
 
 BEGIN_MESSAGE_MAP(CHlTestDlg, CDialogEx)
@@ -102,6 +104,7 @@ BEGIN_MESSAGE_MAP(CHlTestDlg, CDialogEx)
 	ON_WM_CLOSE()
 	ON_BN_CLICKED(IDC_Test, &CHlTestDlg::OnBnClickedTest)
 	ON_BN_CLICKED(IDC_FileExist, &CHlTestDlg::OnBnClickedFileexist)
+	ON_BN_CLICKED(IDC_BUTTON1, &CHlTestDlg::OnBnClickedTestSecond)
 END_MESSAGE_MAP()
 
 
@@ -151,37 +154,16 @@ void CHlTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
 
 void CHlTestDlg::OnBnClickedTest()
 {
-	//std::vector<std::wstring> vecData = UtilsTools::GetUserLocalGroups();
-	int64_t space = UtilsTools::GetDiskFreeSpace();
-
-	space = space / 1024;
-
-	std::wstring strInfo = UtilsString::FormatString(L"free space :%d", space);
-
 	//LangDLList();
-	StyleDLList();
+	//StyleDLList();
 
-	//UtilsTools::GetMemInfo();
-	//bool ret = UtilsTools::IsUserAdmin();
-	//while (true)
-	//{
-	//	DoAction(ACTION_ABILITY, "");
-	//	Sleep(100);
-	//}
+	//TestGameDetect();
+}
 
-	//m_f = std::async(std::launch::async, [&] {
-	//	while (true)
-	//	{
-	//		//CrossThreadPostMessage(WM_USER_DOACTION, NULL, NULL);
-	//		Sleep(1000);
-	//	}
-	//});
 
-	//m_f.valid();
-
-	AppendMsg("-------------");
-	AppendMsg(strInfo.c_str());
-	
+void CHlTestDlg::OnBnClickedTestSecond()
+{
+	TestGameDetect();
 }
 
 // If you add a minimize button to your dialog, you will need the code below
@@ -344,8 +326,12 @@ void CHlTestDlg::OnAction()
 			strAction = Utility::unicode_2_utf8(strTitle);
         
 		std::wstring strFullName = GetSelectedJsonPath() + L"/" + strTitle + L".json";
+
 		//¬‰≈Ã
-		UtilsTools::SaveLocalData(strFullName, strJson);
+		if (m_bSaveParam)
+		{	
+			UtilsTools::SaveLocalData(strFullName, strJson);
+		}
     }
 
 	DoAction(strAction, strJson);
@@ -374,6 +360,8 @@ std::string CHlTestDlg::GetActionContent()
 
 void CHlTestDlg::DoAction(const std::string& strAction, const std::string& strJson)
 {
+	std::wstring strActionW = Utility::utf8_2_unicode(strAction);
+	AppendMsg(strActionW);
     char szResponse[1024] = { 0 };
     int ret = seinvoke_send(ModuleId, strAction.c_str(), strJson.c_str(), szResponse, 1024);
 	m_strOutput = Utility::utf8_2_unicode(szResponse).c_str();
@@ -522,7 +510,7 @@ void CHlTestDlg::ShowGenVideoList(const VideoGenInfoVec& vecData)
 	}
 }
 
-void CHlTestDlg::LangDLList()
+void CHlTestDlg::TestLangDLList()
 {
 	for (int i = 8; i < 12; ++ i)
 	{
@@ -531,7 +519,7 @@ void CHlTestDlg::LangDLList()
 	}
 }
 
-void CHlTestDlg::StyleDLList()
+void CHlTestDlg::TestStyleDLList()
 {
 	for (int i = 2; i <= 8; ++i)
 	{
@@ -540,12 +528,18 @@ void CHlTestDlg::StyleDLList()
 	}
 }
 
+void CHlTestDlg::TestGameDetect()
+{
+	m_gameDetect.init();
+}
+
 std::string CHlTestDlg::TestSha256()
 {
 	BYTE hashBuffer[32] = { 0 };
 
 	std::string strSha256;
-	if (UtilsTools::GetFileHash256("d:\\tmp\\kr.zip", hashBuffer)) {
+	if (UtilsTools::GetFileHash256("d:\\tmp\\kr.zip", hashBuffer)) 
+	{
 		for (int i = 0; i < 32; ++i)
 		{
 			//printf("%02x", hashBuffer[i]);
@@ -583,7 +577,7 @@ BOOL CHlTestDlg::PreTranslateMessage(MSG* pMsg)
 
 void CHlTestDlg::OnClose()
 {
-	//DoAction(Action_Exit, "");
+	DoAction(ACTION_GAMINGAI_EXIT, "");
 	CDialogEx::OnClose();
 }
 

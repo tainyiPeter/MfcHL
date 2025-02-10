@@ -14,10 +14,6 @@
 #include <afxwin.h>         // MFC core and standard components
 #include <afxext.h>         // MFC extensions
 
-
-
-
-
 #ifndef _AFX_NO_OLE_SUPPORT
 #include <afxdtctl.h>           // MFC support for Internet Explorer 4 Common Controls
 #endif
@@ -29,10 +25,10 @@
 
 
 #pragma comment(lib, "libjson.lib")
+#pragma comment(lib, "GameDetect.lib")
 
 //#pragma comment(lib, "D:/mywork/HlTest/ThirdParty/libcomon/libs/debug/libcomon.lib")
 //#pragma comment(lib, "D:/mywork/HlTest/ThirdParty/libcomon/libs/debug/libapp.lib")
-
 
 
 #ifdef _UNICODE

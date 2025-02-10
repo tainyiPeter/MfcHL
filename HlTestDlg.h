@@ -9,6 +9,8 @@
 #include "SEHelper.h"
 #include "LogParser.h"
 
+#include "GameDetectPlugin.h"
+
 #include <future>
 #include <thread>
 #include <chrono>
@@ -56,6 +58,7 @@ protected:
 	afx_msg void OnClose();
 	afx_msg void OnBnClickedTest();
 	afx_msg void OnBnClickedFileexist();
+	afx_msg void OnBnClickedTestSecond();
 
 	DECLARE_MESSAGE_MAP()
 private:
@@ -87,8 +90,9 @@ private:
 	void UtCancelGenVideo();
 	void CancelVideo();
 	void ShowGenVideoList(const VideoGenInfoVec& vecData);
-	void LangDLList();
-	void StyleDLList();
+	void TestLangDLList();
+	void TestStyleDLList();
+	void TestGameDetect();
 	std::string TestSha256();
 
 private:
@@ -98,9 +102,11 @@ private:
     CString m_strMsg;
 	CString m_strCustomAction;
 	CListBox m_lstBox;
-	int m_actionType;
+	int m_actionType = 0;
 	ActionMap	m_mapJsonAction;
 	CLogParser	m_logParser;
+	BOOL	m_bSaveParam;
 
 	std::future<void>	m_f;
+	addin_interface_default_impl	m_gameDetect;
 };
