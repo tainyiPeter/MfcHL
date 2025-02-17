@@ -16,6 +16,8 @@
 #include "JsonBuilder.h"
 #include "afxdialogex.h"
 
+#include <future>
+
 #pragma comment(lib, "Netapi32.lib")
 
 #ifdef _DEBUG
@@ -147,6 +149,104 @@ BOOL CHlTestDlg::OnInitDialog()
 	return TRUE;  // return TRUE  unless you set the focus to a control
 }
 
+void CHlTestDlg::StartGuiThreads()
+{
+	unsigned uiThread1ID = 0;
+	HANDLE hThread = (HANDLE)_beginthreadex(NULL, 0, GuiThreadProc, this, CREATE_SUSPENDED, &uiThread1ID);
+	if (nullptr != hThread)
+	{
+		m_handle = hThread;
+		m_Id = uiThread1ID;
+		m_bRunning.store(true);
+
+		// 恢复线程运行
+		::ResumeThread(hThread);
+	}
+}
+
+void CHlTestDlg::StopHLThreads()
+{
+	m_bRunning.store(false);
+}
+
+unsigned __stdcall CHlTestDlg::GuiThreadProc(void* pThis)
+{
+	CHlTestDlg* pDlg = static_cast<CHlTestDlg*>(pThis);
+	ASSERT(nullptr != pDlg);
+
+	while (pDlg->IsGuiRunning())
+	{
+		pDlg->ConsumeGuiData();
+		this_thread::sleep_for(std::chrono::seconds(1));
+	}
+
+	return 0;
+}
+
+void CHlTestDlg::ProduceGuiData(const AsnycPipeData& data)
+{
+	UtilsTools::OutputString(data);
+	std::lock_guard<std::mutex> lck(m_mtx);
+	m_guiQueueData.push(data);
+}
+
+void CHlTestDlg::ConsumeGuiData()
+{
+	bool bUpdate = false;
+	while (!m_guiQueueData.empty())
+	{
+		bUpdate = true;
+		m_mtx.lock();
+		AsnycPipeData data = m_guiQueueData.front();
+		m_guiQueueData.pop();
+		m_mtx.unlock();
+
+		switch (data.m_type)
+		{
+		case AtomType::ShowMsg:
+		{
+			try 
+			{
+				std::wstring strMsg = std::any_cast<std::wstring>(data.m_data);
+				m_strMsg += strMsg.c_str();
+			}
+			catch (std::bad_any_cast&)
+			{
+				AppendMsg(L"any cast failed msg");
+				break;
+			}
+		}
+		break;
+		case AtomType::Action:
+		{
+			try
+			{
+				ActionCache actionData = std::any_cast<ActionCache>(data.m_data);
+				//std::wstring strActionW = Utility::utf8_2_unicode(actionData.m_strAction);
+				//AppendMsg(strActionW);
+				char szResponse[1024] = { 0 };
+				int ret = seinvoke_send(ModuleId, actionData.m_strAction.c_str(), actionData.m_strJson.c_str(), szResponse, 1024);
+				m_strOutput += Utility::utf8_2_unicode(szResponse).c_str();
+				//UpdateData(FALSE);
+			}
+			catch (std::bad_any_cast&)
+			{
+				AppendMsg(L"any cast failed action");
+				break;
+			}
+		}
+		break;
+		default:
+			break;
+		}
+	}
+	if (bUpdate)
+	{
+		//AdjustMsgWnd();
+		//UpdateData(FALSE);
+	}
+}
+
 void CHlTestDlg::OnSysCommand(UINT nID, LPARAM lParam)
 {
 	CDialogEx::OnSysCommand(nID, lParam);
@@ -163,7 +263,8 @@ void CHlTestDlg::OnBnClickedTest()
 
 void CHlTestDlg::OnBnClickedTestSecond()
 {
-	TestGameDetect();
+	//TestGameDetect();
+	OutputDebugString(L"output debug string ...");
 }
 
 // If you add a minimize button to your dialog, you will need the code below
@@ -209,10 +310,13 @@ bool CHlTestDlg::Init()
 		AppendMsg("seinvoke_init failed");
 		return false;
 	}
+	StartGuiThreads();
     FreshActionList();
     DoAction(ACTION_GAMINGAI_ENTER, "");
 
 	//DoAction(ACTION_GET_STYLEDL_LIST, "");	
+
+	AppendMsg("init ok");
 
 	return true;
 }
@@ -222,6 +326,28 @@ bool CHlTestDlg::IsMyTest()
 	UpdateData(TRUE);
 
 	return m_actionType == 4;
+}
+
+void CHlTestDlg::AsyncAppendMsg(const std::string& strMsg)
+{
+	AsnycPipeData data;
+	data.m_type = AtomType::ShowMsg;
+
+	std::string strMsgW = strMsg + ControlEnter;
+	data.m_data = (std::wstring)Utility::utf8_2_unicode(strMsgW).c_str();
+
+	ProduceGuiData(data);
+}
+
+void CHlTestDlg::AsyncAppendMsg(const std::wstring& strMsg)
+{
+	AsnycPipeData data;
+	data.m_type = AtomType::ShowMsg;
+
+	std::wstring strW = strMsg + ControlEnterW;
+	data.m_data = strW;
+
+	ProduceGuiData(data);
 }
 
 void CHlTestDlg::AppendMsg(const std::string& strMsg)
@@ -314,7 +440,7 @@ void CHlTestDlg::OnAction()
     {
         //手动输入参数
         strAction = Utility::unicode_2_utf8(m_strCustomAction);
-        AppendMsg("manual action");
+        AppendMsg("input action");
     }
     else
     {
@@ -356,6 +482,17 @@ std::string CHlTestDlg::GetActionContent()
 	}
 
 	return it->second;
+}
+
+void CHlTestDlg::AsyncAction(const std::string& strAction, const std::string& strJson)
+{
+	AsnycPipeData data;
+	data.m_type = AtomType::Action;
+
+	ActionCache acData(strAction, strJson);
+	//std::wstring strActionW = Utility::utf8_2_unicode(strAction);
+	data.m_data = acData;
+	ProduceGuiData(data);
 }
 
 void CHlTestDlg::DoAction(const std::string& strAction, const std::string& strJson)
@@ -433,6 +570,7 @@ LRESULT CHlTestDlg::OnActionCallBack(WPARAM wParam, LPARAM lParam)
 
 void CHlTestDlg::OnDropFiles(HDROP hDropInfo)
 {
+	//::MessageBox(0, L"Test", L"title", 0);
     WCHAR szFileName[MAX_PATH] = L"";
     UINT nFileNum = DragQueryFile(hDropInfo, 0xFFFFFFFF, NULL, 0);//DragQueryFile第二参数为为 0xFFFFFFFF的时候返回拖曳的文件个数
     DragQueryFile(hDropInfo, nFileNum - 1, szFileName, MAX_PATH);//获得拖曳的最后一个文件的文件名
@@ -441,16 +579,31 @@ void CHlTestDlg::OnDropFiles(HDROP hDropInfo)
 	AppendMsg(UtilsString::FormatString(L"onDropFile:%s", szFileName));
 
 	m_logParser.ParseLog(szFileName);
-    ServicesVec& services = m_logParser.GetServices();
-    for (auto& itSvr : services)
-    {
-        for (auto& it : itSvr.m_vecData)
-        {
+	ServicesVec& services = m_logParser.GetServices();
+	for (auto& itSvr : services)
+	{
+		for (auto& it : itSvr.m_vecData)
+		{
 			ProcessLogData(it, itSvr.m_timeGap);
-        }
-    }
+		}
+	}
 
-	AppendMsg("finish DropFile");
+	//m_fParseLog = std::async(std::launch::async, [&]() {
+	//	m_logParser.ParseLog(szFileName);
+	//	ServicesVec& services = m_logParser.GetServices();
+	//	for (auto& itSvr : services)
+	//	{
+	//		for (auto& it : itSvr.m_vecData)
+	//		{
+	//			ProcessLogData(it, itSvr.m_timeGap);
+	//		}
+	//	}
+	//	AsyncAppendMsg(L"finish parse log");
+	//	});
+
+	//m_fParseLog.wait();
+	
+	AppendMsg(UtilsString::FormatString(L"finished onDropFile:%s", szFileName));
 	CDialogEx::OnDropFiles(hDropInfo);
 }
 

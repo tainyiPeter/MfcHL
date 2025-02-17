@@ -90,6 +90,9 @@
     <ClInclude Include="LogParser.h">
       <Filter>Logic</Filter>
     </ClInclude>
+    <ClInclude Include="AtomDef.h">
+      <Filter>Def</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HlTest.cpp">

@@ -3,6 +3,7 @@
 #include "UtilsString.h"
 #include "../MacroDef.h"
 #include "FileHelper.h"
+#include "Convert.h"
 
 #include <functional>
 #include <sstream>
@@ -15,11 +16,8 @@
 #include <wincrypt.h>
 #include <lm.h>
 
-
-
 #define			StyleLocalPath			L"/style/local"
 #define			StyleRemotePath			L"/style/remote"
-
 
 
 void UtilsTools::SplitStr(std::wstring& strSrc, const std::wstring& delim, std::vector<std::wstring>& ret)
@@ -423,4 +421,39 @@ int32_t UtilsTools::GetDiskFreeSpace()
 		return -1;
 
 	return FreeBytesAvailable.QuadPart / 1024 / 1024;
+}
+
+void UtilsTools::OutputString(const std::wstring strMsg)
+{
+	std::wstring strOutput = L"[hlTest] ";
+	strOutput += strMsg;
+
+	OutputDebugString(strOutput.c_str());
+}
+
+void UtilsTools::OutputString(const AsnycPipeData& data)
+{
+	std::wstring strOutput;
+	switch (data.m_type)
+	{
+	case AtomType::ShowMsg:
+	{
+		strOutput = L"ShowMsg:";
+		std::wstring strMsg = std::any_cast<std::wstring>(data.m_data);
+		strOutput += strMsg;
+	}
+	break;
+	case AtomType::Action:
+	{
+		strOutput = L"Action:";
+		ActionCache acData = std::any_cast<ActionCache>(data.m_data);
+		strOutput += Utility::utf8_2_unicode(acData.m_strAction);
+	}
+		break;
+	default:
+		strOutput = L"Error";
+		break;
+	}
+
+	OutputString(strOutput);
 }

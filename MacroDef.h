@@ -38,7 +38,9 @@
 #define         DataTimeFormat    "yyyy-MM-dd hh:mm:ss"
 
 #define         ControlEnter      "\r\n"
+#define         ControlEnterW     L"\r\n"
 #define         TextEnter         "\n"
+
 
 
 //json 字符串定义

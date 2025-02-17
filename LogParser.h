@@ -13,6 +13,7 @@ public:
 public:
     void TestLog(const std::wstring& strFile);
     void ParseLog(const std::wstring& strFile);
+    void PareeHLPoints(const std::wstring& strFile);
     void ParseLog(const StringList& strList);
     ServicesVec& GetServices() { return m_Services; }
 

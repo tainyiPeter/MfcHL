@@ -53,6 +53,10 @@ void CLogParser::ParseLog(const std::wstring &strFile)
     return ParseLog(strList);
 }
 
+void CLogParser::PareeHLPoints(const std::wstring& strFile)
+{
+}
+
 void CLogParser::ParseLog(const StringList& strList)
 {
     if (strList.empty()) return;

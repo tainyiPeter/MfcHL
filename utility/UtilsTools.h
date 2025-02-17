@@ -1,13 +1,11 @@
 #pragma once
 
 #include "Std.h"
+#include "../AtomDef.h"
 
 #include <iterator>
 #include <atlstr.h>
 #include <cstdint>
-
-
-
 
 class UtilsTools
 {
@@ -94,4 +92,7 @@ public:
     static std::vector<std::wstring> GetUserLocalGroups();
 
     static int32_t GetDiskFreeSpace(); //·µ»ØMB
+
+    static void OutputString(const std::wstring strMsg);
+    static void OutputString(const AsnycPipeData& data);
 };
