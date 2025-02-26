@@ -25,6 +25,9 @@
     <Filter Include="JsonHelper">
       <UniqueIdentifier>{57ff08fd-4682-467e-8541-ed65dcf212f2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="KeyEvent">
+      <UniqueIdentifier>{730ba498-e4f2-440e-b3d0-4f34dfce520d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HlTest.h">
@@ -93,6 +96,12 @@
     <ClInclude Include="AtomDef.h">
       <Filter>Def</Filter>
     </ClInclude>
+    <ClInclude Include="IKeyEventSDK.h">
+      <Filter>KeyEvent</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventSDKImpl.h">
+      <Filter>KeyEvent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HlTest.cpp">
@@ -133,6 +142,9 @@
     </ClCompile>
     <ClCompile Include="LogParser.cpp">
       <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyEventSDKImpl.cpp">
+      <Filter>KeyEvent</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -202,8 +202,10 @@
     <ClInclude Include="HighLightDef.h" />
     <ClInclude Include="HlTest.h" />
     <ClInclude Include="HlTestDlg.h" />
+    <ClInclude Include="IKeyEventSDK.h" />
     <ClInclude Include="JsonHelper\JsonBuilder.h" />
     <ClInclude Include="JsonHelper\JsonParser.h" />
+    <ClInclude Include="KeyEventSDKImpl.h" />
     <ClInclude Include="LogParser.h" />
     <ClInclude Include="ParseDef.h" />
     <ClInclude Include="MacroDef.h" />
@@ -231,6 +233,9 @@
     <ClCompile Include="JsonHelper\JsonParser.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="KeyEventSDKImpl.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="LogParser.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>

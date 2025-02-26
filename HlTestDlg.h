@@ -10,6 +10,7 @@
 #include "LogParser.h"
 
 #include "GameDetectPlugin.h"
+#include "KeyEventSDKImpl.h"
 
 #include <future>
 #include <thread>
@@ -111,6 +112,7 @@ private:
 	void TestLangDLList();
 	void TestStyleDLList();
 	void TestGameDetect();
+	void TestKeyEvent();
 	std::string TestSha256();
 
 private:
@@ -133,4 +135,5 @@ private:
 	unsigned int	m_Id = 0;
 	std::atomic_bool m_bRunning = false;
 	AsyncQueueType	m_guiQueueData;
+	KeyEventSDKImpl	m_keyEvent;
 };

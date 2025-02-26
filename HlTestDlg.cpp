@@ -258,6 +258,9 @@ void CHlTestDlg::OnBnClickedTest()
 	//StyleDLList();
 
 	//TestGameDetect();
+	//MessageBox()
+
+	TestKeyEvent();
 }
 
 
@@ -684,6 +687,31 @@ void CHlTestDlg::TestStyleDLList()
 void CHlTestDlg::TestGameDetect()
 {
 	m_gameDetect.init();
+}
+
+void CHlTestDlg::TestKeyEvent()
+{
+	// 注册按键事件回调
+	m_keyEvent.registerKeyEventCallback([](int keyCode, bool isPressed) {
+		std::cout << "Key event: " << keyCode << " is " << (isPressed ? "pressed" : "released") << std::endl;
+		});
+
+	// 启动按键检测
+	m_keyEvent.startKeyDetection();
+
+	std::cout << "Press any key to see the output. Press ESC to exit." << std::endl;
+
+	// 检测 ESC 键是否按下
+	while (true) {
+		if (m_keyEvent.isKeyPressed(VK_ESCAPE)) {
+			std::cout << "ESC key pressed. Exiting..." << std::endl;
+			break;
+		}
+		Sleep(100); // 避免 CPU 占用过高
+	}
+
+	// 停止按键检测
+	m_keyEvent.stopKeyDetection();
 }
 
 std::string CHlTestDlg::TestSha256()
