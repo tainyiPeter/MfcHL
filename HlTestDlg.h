@@ -114,6 +114,7 @@ private:
 	void TestGameDetect();
 	void TestKeyEvent();
 	std::string TestSha256();
+	void TestAes();
 
 private:
 	CComboBox m_cbActionList;

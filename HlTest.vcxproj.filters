@@ -102,6 +102,9 @@
     <ClInclude Include="KeyEventSDKImpl.h">
       <Filter>KeyEvent</Filter>
     </ClInclude>
+    <ClInclude Include="utility\Aes.h">
+      <Filter>utility</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HlTest.cpp">
@@ -145,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="KeyEventSDKImpl.cpp">
       <Filter>KeyEvent</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\Aes.cpp">
+      <Filter>utility</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

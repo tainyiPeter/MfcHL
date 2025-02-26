@@ -15,6 +15,7 @@
 #include "HlTestDlg.h"
 #include "JsonBuilder.h"
 #include "afxdialogex.h"
+#include "Aes.h"
 
 #include <future>
 
@@ -267,7 +268,8 @@ void CHlTestDlg::OnBnClickedTest()
 void CHlTestDlg::OnBnClickedTestSecond()
 {
 	//TestGameDetect();
-	OutputDebugString(L"output debug string ...");
+	//OutputDebugString(L"output debug string ...");
+	TestAes();
 }
 
 // If you add a minimize button to your dialog, you will need the code below
@@ -734,6 +736,41 @@ std::string CHlTestDlg::TestSha256()
 	}
 
 	return strSha256;
+}
+
+void CHlTestDlg::TestAes()
+{
+	try 
+	{
+		// 1. 生成密钥（32 字节 = AES-256）和 IV（16 字节）
+		std::vector<BYTE> key = Aes::generate_random_bytes(32);
+		std::vector<BYTE> iv = Aes::generate_random_bytes(16);
+
+		// 2. 明文数据
+		std::string plaintextStr = "Hello, AES-256-CBC!";
+		std::vector<BYTE> plaintext(plaintextStr.begin(), plaintextStr.end());
+
+		// 3. 加密
+		std::vector<BYTE> ciphertext = Aes::encrypt_aes_cbc(plaintext, key, iv);
+
+		// 4. 解密
+		std::vector<BYTE> decrypted = Aes::decrypt_aes_cbc(ciphertext, key, iv);
+
+		// 5. 验证结果
+		std::string decryptedStr(decrypted.begin(), decrypted.end());
+		if (decryptedStr == plaintextStr) {
+			std::cout << "加解密成功！解密结果: " << decryptedStr << std::endl;
+		}
+		else {
+			std::cerr << "解密失败！" << std::endl;
+		}
+
+	}
+	catch (const std::exception& e) 
+	{
+		std::cerr << "错误: " << e.what() << std::endl;
+		return;
+	}
 }
 
 void CHlTestDlg::OnClickedClear()
