@@ -197,6 +197,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="AtomDef.h" />
+    <ClInclude Include="CSqliteHelp.h" />
     <ClInclude Include="framework.h" />
     <ClInclude Include="GuiInterface.h" />
     <ClInclude Include="HighLightDef.h" />
@@ -212,6 +213,8 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SEHelper.h" />
+    <ClInclude Include="Sqlite\sqlite3.h" />
+    <ClInclude Include="Sqlite\sqlite3ext.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="utility\Aes.h" />
     <ClInclude Include="utility\AutoBuffer.h" />
@@ -223,6 +226,7 @@
     <ClInclude Include="utility\UtilsTools.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CSqliteHelp.cpp" />
     <ClCompile Include="HlTest.cpp" />
     <ClCompile Include="HlTestDlg.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
@@ -237,6 +241,7 @@
     </ClCompile>
     <ClCompile Include="KeyEventSDKImpl.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="LogParser.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
@@ -251,6 +256,14 @@
     <ClCompile Include="SEHelper.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Sqlite\shell.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Sqlite\sqlite3.c">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="utility\Aes.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>

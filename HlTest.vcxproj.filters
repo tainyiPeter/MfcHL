@@ -28,6 +28,9 @@
     <Filter Include="KeyEvent">
       <UniqueIdentifier>{730ba498-e4f2-440e-b3d0-4f34dfce520d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Sqlite">
+      <UniqueIdentifier>{b221224d-e933-4b1e-b48f-d754259382b3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HlTest.h">
@@ -105,6 +108,15 @@
     <ClInclude Include="utility\Aes.h">
       <Filter>utility</Filter>
     </ClInclude>
+    <ClInclude Include="Sqlite\sqlite3.h">
+      <Filter>Sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="Sqlite\sqlite3ext.h">
+      <Filter>Sqlite</Filter>
+    </ClInclude>
+    <ClInclude Include="CSqliteHelp.h">
+      <Filter>Logic</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HlTest.cpp">
@@ -151,6 +163,15 @@
     </ClCompile>
     <ClCompile Include="utility\Aes.cpp">
       <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="Sqlite\shell.c">
+      <Filter>Sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="Sqlite\sqlite3.c">
+      <Filter>Sqlite</Filter>
+    </ClCompile>
+    <ClCompile Include="CSqliteHelp.cpp">
+      <Filter>Logic</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
