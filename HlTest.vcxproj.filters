@@ -31,6 +31,9 @@
     <Filter Include="Sqlite">
       <UniqueIdentifier>{b221224d-e933-4b1e-b48f-d754259382b3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HttpReq">
+      <UniqueIdentifier>{957a3b4b-0056-45d3-b6f4-de930fd91fb3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="HlTest.h">
@@ -117,6 +120,9 @@
     <ClInclude Include="CSqliteHelp.h">
       <Filter>Logic</Filter>
     </ClInclude>
+    <ClInclude Include="HttpReq\HttpRequestHandler.h">
+      <Filter>HttpReq</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="HlTest.cpp">
@@ -172,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="CSqliteHelp.cpp">
       <Filter>Logic</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpReq\HttpRequestHandler.cpp">
+      <Filter>HttpReq</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

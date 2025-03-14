@@ -203,6 +203,7 @@
     <ClInclude Include="HighLightDef.h" />
     <ClInclude Include="HlTest.h" />
     <ClInclude Include="HlTestDlg.h" />
+    <ClInclude Include="HttpReq\HttpRequestHandler.h" />
     <ClInclude Include="IKeyEventSDK.h" />
     <ClInclude Include="JsonHelper\JsonBuilder.h" />
     <ClInclude Include="JsonHelper\JsonParser.h" />
@@ -230,6 +231,10 @@
     <ClCompile Include="HlTest.cpp" />
     <ClCompile Include="HlTestDlg.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="HttpReq\HttpRequestHandler.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="JsonHelper\JsonBuilder.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>

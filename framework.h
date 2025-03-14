@@ -24,6 +24,7 @@
 #include <afxcontrolbars.h>     // MFC support for ribbons and control bars
 
 
+#pragma comment(lib, "libHttp.lib")
 #pragma comment(lib, "libjson.lib")
 #pragma comment(lib, "GameDetect.lib")
 

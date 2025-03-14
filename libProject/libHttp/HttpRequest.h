@@ -5,7 +5,7 @@
 #define WIN32_LEAN_AND_MEAN 
 #include <winsock2.h>        // Include Winsock2 before Windows.h
 #include <windows.h>         // Include Windows.h
-#include "curl/curl.h"
+#include <curl/curl.h>
 
 #include "Utils/std_macro.h"
 #include "Utils/SmartBuffer.h"
