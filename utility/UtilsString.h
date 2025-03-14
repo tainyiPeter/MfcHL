@@ -35,7 +35,7 @@ public:
 	*/
 	static bool IsEqualNoCase(const std::string& strData1, const std::string& strData2)
 	{
-		IsEqualNoCase(strData1.c_str(), strData2.c_str());
+		return IsEqualNoCase(strData1.c_str(), strData2.c_str());
 	}
 	static bool IsEqualNoCase(const char* szData1, const char* szData2)
 	{
