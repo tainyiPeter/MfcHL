@@ -5,10 +5,7 @@
 #include "HttpRequest.h"
 #include "Utils\safethread.h"
 
-#include <string>
-#include <memory>
 #include <mutex>
-#include <vector>
 
 typedef void (*HTTP_REQUEST_CB)(RequestPtr pRequest, ResponsePtr pResponse);
 
