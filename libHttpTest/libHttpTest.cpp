@@ -5,39 +5,135 @@
 
 #include "CurlHelper.h"
 #include "UtilsString.h"
+#include "UtilsTools.h"
+#include "OpenSSLHelp.h"
 
 #include <iostream>
 #include <string>
 using namespace std;
 
+static const std::string appId = "1593389727517312";
+
 #pragma comment(lib, "SElibcurl.lib")
+
 #ifdef _DEBUG
 #pragma comment(lib, "libcurld.lib")
+#pragma comment(lib, "libUtility.lib")
+#pragma comment(lib, "libcrypto.lib")
+#pragma comment(lib, "libssl.lib")
+
 #else
 #pragma comment(lib, "libcurl.lib")
 #endif
 
+//std::string CreateLzSign(const std::vector<std::tuple<std::string, std::string>>& vecData)
+//{
+//	std::string strContent;
+//	std::sort(vecData.begin(), vecData.end(), [](auto first, auto& second)
+//		{
+//			return std::get<0>(first).compare(std::get<0>(second)) < 0;
+//		});
+//
+//	uint32_t idx = 0;
+//	for (auto iter : vecData)
+//	{
+//		strContent += std::get<1>(iter);
+//		++idx;
+//		if (idx < vecData.size())
+//		{
+//			strContent += "&";
+//		}
+//	}
+//
+//	return strContent;
+//}
 
-//#ifdef _WIN32
-//	#ifdef _DEBUG
-//	#pragma comment(lib, "Win32/libcurld.lib")
-//	#else
-//	#pragma comment(lib, "Win32/libcurl.lib")
-//	#endif
-//#else  //_WIN64
-//	#ifdef _DEBUG
-//	#pragma comment(lib, "Win64/libcurld.lib")
-//	#else
-//	#pragma comment(lib, "Win64/libcurl.lib")
-//	#endif
-//#endif
+bool SyncHttpRequestLz(const std::wstring& strUrl, std::string& strResponse)
+{
+	//std::string reqUrl = "https://cloud-pay.mbgtest.lenovomm.com/cloud-legionzone/api/v1/getClassifyList";
+
+	//std::vector<std::tuple<std::string, std::string>> vecParam =
+	//{
+	//	std::make_tuple("appId", appId),
+	//	std::make_tuple("nonce", UtilsTools::GetUUID()),
+	//	std::make_tuple("sign_type", "RSA2"),
+	//	std::make_tuple("timestamp", UtilsString::ConvertUint64ToString(UtilsTools::GetTimestampMs())),
+	//};
+
+	//std::string strSign = CreateLzSign(vecParam);
+	//strSign = UtilsTools::UrlEncode(strSign);
+	//vecParam.push_back(std::make_tuple("sign", strSign));
+
+	//reqUrl += "?";
+	//size_t size = vecParam.size();
+	//int idx = 0;
+	//for (auto iter : vecParam)
+	//{
+	//	reqUrl += std::get<0>(iter);
+	//	reqUrl += "=";
+	//	reqUrl += std::get<1>(iter);
+	//	if (++idx < size)
+	//	{
+	//		reqUrl += "&";
+	//	}
+	//}
+	////LOG_INFO(L"url123:%s", CString(reqUrl.c_str()));
+	//std::string strRequestBody;
+	//std::vector<CString> vecHeaders;
+	////if (!CLibHttpHelper::HttpRequest(reqUrl.c_str(), strResponse, true, "application/x-www-form-urlencoded"))
+	////{
+	////	//LOG_ERROR(L"request failed, url:%s", reqUrl.c_str());
+	////	return false;
+	////}
+
+	return true;
+}
+
+void test_sha()
+{
+	// 输入数据
+	const char* data = "abcdefg";
+	size_t data_len = strlen(data);
+
+	std::string sign = OpenSSLHelp::PrikeySign(data, false);
+
+	cout << sign.c_str() << endl;
+
+	sign = OpenSSLHelp::PrikeySign(data, true);
+
+	cout << sign.c_str() << endl;
+
+	return;
+
+	// 私钥路径
+	const char* private_key_path = "D:/mywork/MfcHL/libProject/UtilityLib/private.pem";
+
+	// 签名缓冲区
+	unsigned char signature[256];
+	size_t signature_len = sizeof(signature);
+
+	// 计算签名
+	if (OpenSSLHelp::sha256_rsa_sign(private_key_path, (unsigned char*)data, data_len, signature, &signature_len)) 
+	{
+		printf("Signature generated successfully!\n");
+		printf("Signature (hex): ");
+		for (size_t i = 0; i < signature_len; i++) {
+			printf("%02x", signature[i]);
+		}
+		printf("\n");
+	}
+	else {
+		fprintf(stderr, "Failed to generate signature\n");
+	}
+}
 
 int main()
 {
-	CString url = "https://cloud-pay.mbgtest.lenovomm.com/cloud-auth/oauth/token";
-	int32_t ret = CCurlHelper::Test(url);
+	//CString url = "https://cloud-pay.mbgtest.lenovomm.com/cloud-auth/oauth/token";
+	//int32_t ret = CCurlHelper::Test(url);
 
-	std::string strTmp = UtilsString::FormatString("%s===%s", "abc", "def");
+	//std::string strTmp = UtilsString::FormatString("%s===%s", "abc", "def");
+	test_sha();
 
 	return 0;
 }

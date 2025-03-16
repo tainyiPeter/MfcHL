@@ -129,3 +129,10 @@ std::wstring UtilsString::ConverToLower(const std::wstring& src)
 
 	return ret;
 }
+
+std::string UtilsString::ConvertUint64ToString(uint64_t n64Value)
+{
+	char buf[64] = { "" };
+	sprintf_s(buf, u8"%I64u", n64Value);
+	return buf;
+}

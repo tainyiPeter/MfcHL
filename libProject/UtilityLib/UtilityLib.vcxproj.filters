@@ -33,6 +33,12 @@
     <ClInclude Include="mem_macro.h">
       <Filter>Src</Filter>
     </ClInclude>
+    <ClInclude Include="UtilsTools.h">
+      <Filter>Src</Filter>
+    </ClInclude>
+    <ClInclude Include="OpenSSLHelp.h">
+      <Filter>Src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UtilityLib.cpp">
@@ -45,6 +51,12 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="UtilsString.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="UtilsTools.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="OpenSSLHelp.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>

@@ -12,13 +12,14 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libjson", "libProject\json\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameDetect", "libProject\GameDetect\GameDetect.vcxproj", "{5F4636C3-EAEE-4057-B2FC-367FE4343B57}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UtilityLib", "libProject\UtilityLib\UtilityLib.vcxproj", "{B373C0C7-77AE-4B6C-87D3-2B05EA7143C5}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libUtility", "libProject\UtilityLib\UtilityLib.vcxproj", "{B373C0C7-77AE-4B6C-87D3-2B05EA7143C5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libHttp", "libProject\libHttp\libHttp.vcxproj", "{09756E60-2CFA-40BE-BA31-1305DB4C3FD5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libHttpTest", "libHttpTest\libHttpTest.vcxproj", "{D93D6112-9587-4AFA-8EA2-63D3B7DCB234}"
 	ProjectSection(ProjectDependencies) = postProject
 		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD} = {6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}
+		{B373C0C7-77AE-4B6C-87D3-2B05EA7143C5} = {B373C0C7-77AE-4B6C-87D3-2B05EA7143C5}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SElibcurl", "libProject\libcurl\libcurl.vcxproj", "{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}"

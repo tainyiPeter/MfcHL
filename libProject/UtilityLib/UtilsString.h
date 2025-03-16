@@ -73,4 +73,6 @@ public:
 
 	static std::wstring ConverToUpper(const std::wstring& src);
 	static std::wstring ConverToLower(const std::wstring& src);
+
+	static std::string ConvertUint64ToString(uint64_t n64Value);
 };
