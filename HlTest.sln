@@ -17,6 +17,11 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libHttp", "libProject\libHttp\libHttp.vcxproj", "{09756E60-2CFA-40BE-BA31-1305DB4C3FD5}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libHttpTest", "libHttpTest\libHttpTest.vcxproj", "{D93D6112-9587-4AFA-8EA2-63D3B7DCB234}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD} = {6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SElibcurl", "libProject\libcurl\libcurl.vcxproj", "{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -100,6 +105,18 @@ Global
 		{D93D6112-9587-4AFA-8EA2-63D3B7DCB234}.Release|x64.Build.0 = Release|x64
 		{D93D6112-9587-4AFA-8EA2-63D3B7DCB234}.Release|x86.ActiveCfg = Release|Win32
 		{D93D6112-9587-4AFA-8EA2-63D3B7DCB234}.Release|x86.Build.0 = Release|Win32
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Debug|ARM64.ActiveCfg = Debug|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Debug|ARM64.Build.0 = Debug|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Debug|x64.ActiveCfg = Debug|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Debug|x64.Build.0 = Debug|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Debug|x86.ActiveCfg = Debug|Win32
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Debug|x86.Build.0 = Debug|Win32
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Release|ARM64.ActiveCfg = Release|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Release|ARM64.Build.0 = Release|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Release|x64.ActiveCfg = Release|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Release|x64.Build.0 = Release|x64
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Release|x86.ActiveCfg = Release|Win32
+		{6E6F479C-6BA6-450A-8C22-A22D1BDFA6CD}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

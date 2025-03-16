@@ -2,10 +2,12 @@
 
 #include "PrepareDef.h"
 
-#define WIN32_LEAN_AND_MEAN 
-#include <winsock2.h>        // Include Winsock2 before Windows.h
-#include <windows.h>         // Include Windows.h
-#include <curl/curl.h>
+#ifdef HTTPLIB_PROJECT
+#define EXTERN_CLASS _declspec(dllexport)
+#else
+#define EXTERN_CLASS _declspec(dllimport)
+#endif
+
 
 #include "Utils/std_macro.h"
 #include "Utils/SmartBuffer.h"

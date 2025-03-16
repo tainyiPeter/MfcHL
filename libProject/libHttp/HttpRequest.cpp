@@ -1,6 +1,9 @@
-//#include "pch.h"
-
 #include "HttpRequest.h"
+#define WIN32_LEAN_AND_MEAN 
+#include <winsock2.h>        // Include Winsock2 before Windows.h
+#include <windows.h>         // Include Windows.h
+#include "curl/curl.h"
+
 #include "Utils/mem_macro.h"
 #include "Utils/UtilsString.h"
 

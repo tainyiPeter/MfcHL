@@ -1,23 +1,43 @@
-#include "HttpLib.h"
+//#define WIN32_LEAN_AND_MEAN 
+//#include <winsock2.h>        // Include Winsock2 before Windows.h
+//#include <windows.h>         // Include Windows.h
+//#include "curl/curl.h"
+
+#include "CurlHelper.h"
+#include "UtilsString.h"
 
 #include <iostream>
+#include <string>
 using namespace std;
 
+#pragma comment(lib, "SElibcurl.lib")
+#ifdef _DEBUG
+#pragma comment(lib, "libcurld.lib")
+#else
+#pragma comment(lib, "libcurl.lib")
+#endif
 
 
+//#ifdef _WIN32
+//	#ifdef _DEBUG
+//	#pragma comment(lib, "Win32/libcurld.lib")
+//	#else
+//	#pragma comment(lib, "Win32/libcurl.lib")
+//	#endif
+//#else  //_WIN64
+//	#ifdef _DEBUG
+//	#pragma comment(lib, "Win64/libcurld.lib")
+//	#else
+//	#pragma comment(lib, "Win64/libcurl.lib")
+//	#endif
+//#endif
 
 int main()
 {
-    std::cout << "Hello World!\n";
+	CString url = "https://cloud-pay.mbgtest.lenovomm.com/cloud-auth/oauth/token";
+	int32_t ret = CCurlHelper::Test(url);
+
+	std::string strTmp = UtilsString::FormatString("%s===%s", "abc", "def");
+
+	return 0;
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
