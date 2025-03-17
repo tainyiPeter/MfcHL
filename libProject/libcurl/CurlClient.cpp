@@ -4,6 +4,7 @@
 #include <tuple>
 #include <vector>
 #include <string>
+#include <iostream>
 
 #include <algorithm>
 #include <atlconv.h>
@@ -247,6 +248,7 @@ BOOL CCurlClient::DownloadFile(CString localPath, BOOL breakContinue /*= FALSE*/
 			break;
 		}
 		ret = curl_easy_setopt(easy_handle, CURLOPT_URL, m_url.c_str());
+		//ret |= curl_easy_setopt(easy_handle, CURLOPT_SSL_VERIFYPEER, 0L);
 		ret |= curl_easy_setopt(easy_handle, CURLOPT_WRITEFUNCTION, &lib_cur_write_callback);
 		ret |= curl_easy_setopt(easy_handle, CURLOPT_WRITEDATA, fp);
 		ret |= curl_easy_setopt(easy_handle, CURLOPT_NOPROGRESS, 0L);
@@ -482,7 +484,8 @@ long CCurlClient::GetDownloadFileLength()
 	return (long)size;
 }
 
-size_t lib_cur_receive_data_callback(void* contents, size_t size, size_t nmemb, void* stream) {
+size_t lib_cur_receive_data_callback(void* contents, size_t size, size_t nmemb, void* stream) 
+{
 	string* str = (string*)stream;
 	(*str).append((char*)contents, size * nmemb);
 	return size * nmemb;
@@ -634,4 +637,73 @@ int32_t  CCurlClient::TestPost()
 	curl_easy_getinfo(easy_handle, CURLINFO_RESPONSE_CODE, &statusCode);
 	curl_easy_cleanup(easy_handle);
 	return ret;
+}
+
+
+size_t write_callback(void* ptr, size_t size, size_t nmemb, void* stream)
+{
+	FILE* fp = (FILE*)stream;
+	size_t written = fwrite(ptr, size, nmemb, fp);
+	return written;
+}
+
+int progress_callback(void* clientp, double dltotal, double dlnow, double ultotal, double ulnow)
+{
+	if (dltotal > 0)
+	{
+		int nPersent = (int)(100.0 * dlnow / dltotal);
+		printf("[%f/%f]下载进度:%d\r", dlnow, dltotal, nPersent);
+	}
+	return 0;
+}
+
+int32_t CCurlClient::TestDLFile(CString localPath)
+{
+	CURL* curl = curl_easy_init();
+	if (curl == NULL)
+	{
+		SetLastError(HTTP_ERROR_CURINIT_FAILED);
+		return CURLE_FAILED_INIT;
+	}
+
+	std::string	url = "https://guanjia.lenovo.com.cn/download/lenovopcmanager_apps.exe";
+	int ret = curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+
+	// 显示重定向次数
+	curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+	// 是否验证证书
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+	// 是否验证主机名
+	curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, 0L);
+
+	FILE* file = NULL;
+
+	std::string fileName = "d:\\tmp123\\a.dat";
+	fopen_s(&file, fileName.c_str(), "wb");
+	if (!file)
+	{
+		//cout << "文件创建失败！" << endl;
+	}
+	// 设置数据回调的句柄
+	curl_easy_setopt(curl, CURLOPT_WRITEDATA, file);
+
+	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+
+	// 设置文件下载进度回调
+	curl_easy_setopt(curl, CURLOPT_NOPROGRESS, FALSE);
+	// 设置进度回调函数
+	curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION, progress_callback);
+
+	// 开始执行请求
+	CURLcode res = curl_easy_perform(curl);
+	// 判断错误
+	if (res != CURLE_OK)
+	{
+		cout << "下载失败:" << curl_easy_strerror(res) << endl;
+	}
+
+	fclose(file);
+	curl_easy_cleanup(curl);
+
+	return 0;
 }

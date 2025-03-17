@@ -22,6 +22,8 @@ public:
 
 	BOOL DownloadFile(CString localPath, BOOL breakContinue = FALSE, std::function<void(INT64 complete, INT64 totle, double speed)> progressCallback = NULL);
 
+	int32_t TestDLFile(CString localPath);
+
 	//localpath是指定下载的目录， filePath 返回下载的文件路径，文件名根据http的协议来定义
 	//如果没有计算出文件名，则随机使用一个exe的文件名 （待商榷）
 	BOOL DownloadFile(CString localDictory, CString& filePath, BOOL breakContinue = FALSE, std::function<void(INT64 complete, INT64 totle, double speed)> progressCallback = NULL);

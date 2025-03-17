@@ -4,24 +4,24 @@
 
 
 
-//BOOL CCurlHelper::DownloadFile(CString url, CString localPath, BOOL breakContinue /*= FALSE*/, std::function<void(INT64 complete, INT64 totle, double speed)> progressCallback /*= NULL*/)
-//{
-//	CCurlClient client(url);
-//	return client.DownloadFile(localPath, breakContinue, progressCallback);
-//}
-//
-//BOOL CCurlHelper::DownloadFile(CString url, CString localDictory, CString& filePath, BOOL breakContinue /*= FALSE*/, std::function<void(INT64 complete, INT64 totle, double speed)> progressCallback /*= NULL*/)
-//{
-//	CCurlClient client(url);
-//	return client.DownloadFile(localDictory, filePath, breakContinue, progressCallback);
-//}
-//
-//int CCurlHelper::HttpGet(CString url, string& response, long& statusCode, int timeout)
-//{
-//	CCurlClient client(url);
-//	return client.HttpGet(response, statusCode, timeout);
-//}
-//
+BOOL CCurlHelper::DownloadFile(CString url, CString localPath, BOOL breakContinue /*= FALSE*/, std::function<void(INT64 complete, INT64 totle, double speed)> progressCallback /*= NULL*/)
+{
+	CCurlClient client(url);
+	return client.DownloadFile(localPath, breakContinue, progressCallback);
+}
+
+BOOL CCurlHelper::DownloadFile(CString url, CString localDictory, CString& filePath, BOOL breakContinue /*= FALSE*/, std::function<void(INT64 complete, INT64 totle, double speed)> progressCallback /*= NULL*/)
+{
+	CCurlClient client(url);
+	return client.DownloadFile(localDictory, filePath, breakContinue, progressCallback);
+}
+
+int CCurlHelper::HttpGet(CString url, string& response, long& statusCode, int timeout)
+{
+	CCurlClient client(url);
+	return client.HttpGet(response, statusCode, timeout);
+}
+
 //int CCurlHelper::HttpGet(const CString& url, long& statusCode, int timeout)
 //{
 //	CCurlClient client(url);
@@ -44,4 +44,10 @@ int32_t CCurlHelper::Test(CString url)
 {
 	CCurlClient client(url);
 	return client.TestPost();
+}
+
+int32_t CCurlHelper::TestDLFile(CString url, CString localPath)
+{
+	CCurlClient client(url);
+	return client.TestDLFile(localPath);
 }

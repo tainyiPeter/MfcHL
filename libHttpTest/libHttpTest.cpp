@@ -129,11 +129,36 @@ void test_sha()
 
 int main()
 {
+	std::string response;
+	long sCode = 0;
+	CString localPath = "d:\\tmp123";
 	//CString url = "https://cloud-pay.mbgtest.lenovomm.com/cloud-auth/oauth/token";
 	//int32_t ret = CCurlHelper::Test(url);
 
+	//CString url_get = "https://cloud-pay.mbgtest.lenovomm.com/cloud-legionzone/api/v1/getClassifyDatas?appId=1593389727517312&nonce=64d0d0bb-f739-4e5f-b7c3-29ab5cd61769&sign_type=RSA2&timestamp=1742115996000&classifyId=304&page=1&pageSize=10&sign=MWT4eICeVnaqblgA%2BlSVifv7eEOOOfwq4slgxMMoa69T112i133cXsVGCXmGnpLGo5Sqn%2FM%2B5VeMXHJA17%2Ffl5tKpE9oLV3szjKL%2B6TEnKFxX9hxMkgwKch3aevNUMPm3IBrfS95Rfkp6MQImm4w5mp9GRfchUirRMmMpd9%2FMn0%3D";
+	//int32_t ret = CCurlHelper::HttpGet(url_get, response, sCode);
+
+	//cout << "rsp:" << response.c_str() << endl;
+	//cout << " code:" << sCode << endl;
+
+	//ÏÂÔØ²âÊÔ
+	CString url = "https://smartdl.lenovo.com.cn/lzupdate/forhome/LZLiteSetup.exe";
+	url = "https://guanjia.lenovo.com.cn/download/lenovopcmanager_apps.exe";
+	//int32_t ret = CCurlHelper::DownloadFile(url, localPath);
+
+
+	//int32_t ret = CCurlHelper::DownloadFile(url, localPath, TRUE, [](int64_t done, int64_t total, double speed) {
+	//	cout << "done:" << done << " total:" << total <<" speed:" << speed << endl;
+	//	});
+
+
+	int32_t ret = CCurlHelper::TestDLFile(url, localPath);
+	int i = 0;
+	cin >> i;
+	//int CCurlHelper::HttpGet(CString url, string & response, long& statusCode, int timeout)
+
 	//std::string strTmp = UtilsString::FormatString("%s===%s", "abc", "def");
-	test_sha();
+	//test_sha();
 
 	return 0;
 }
