@@ -180,10 +180,10 @@ BOOL CCurlClient::DownloadFile(CString localPath, BOOL breakContinue /*= FALSE*/
 		return FALSE;
 	}
 
-	//如果没有指定下载的路径，则使用目录
 	if (localPath.GetLength() > 0)
 	{
-		m_downloadFilePath = localPath;
+		CString fileName = GetDownloadFileName();
+		m_downloadFilePath = localPath + L"\\" + fileName;
 	}
 	else
 	{

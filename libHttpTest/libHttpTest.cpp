@@ -147,12 +147,13 @@ int main()
 	//int32_t ret = CCurlHelper::DownloadFile(url, localPath);
 
 
-	//int32_t ret = CCurlHelper::DownloadFile(url, localPath, TRUE, [](int64_t done, int64_t total, double speed) {
-	//	cout << "done:" << done << " total:" << total <<" speed:" << speed << endl;
-	//	});
+	int32_t ret = CCurlHelper::DownloadFile(url, localPath, TRUE, [](int64_t done, int64_t total, double speed) 
+		{
+		cout << "done:" << done << " total:" << total << " speed:" << speed << endl;
+		});
 
 
-	int32_t ret = CCurlHelper::TestDLFile(url, localPath);
+	//int32_t ret = CCurlHelper::TestDLFile(url, localPath);
 	int i = 0;
 	cin >> i;
 	//int CCurlHelper::HttpGet(CString url, string & response, long& statusCode, int timeout)

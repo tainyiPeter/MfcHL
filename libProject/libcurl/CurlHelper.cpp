@@ -22,32 +22,32 @@ int CCurlHelper::HttpGet(CString url, string& response, long& statusCode, int ti
 	return client.HttpGet(response, statusCode, timeout);
 }
 
-//int CCurlHelper::HttpGet(const CString& url, long& statusCode, int timeout)
-//{
-//	CCurlClient client(url);
-//	return client.HttpGet(statusCode, timeout);
-//}
-//
-//int CCurlHelper::HttpPost(CString url, string& response, string requestBody, long& statusCode, string contenttype, int timeout)
-//{
-//	CCurlClient client(url);
-//	return client.HttpPost(response, requestBody, statusCode, contenttype, timeout);
-//}
-//
-//BOOL CCurlHelper::HttpUploadFiles(CString url, string& response, std::map<CString, CString>& args, CString file)
-//{
-//	//还未实现
-//	return FALSE;
-//}
+int CCurlHelper::HttpGet(const CString& url, long& statusCode, int timeout)
+{
+	CCurlClient client(url);
+	return client.HttpGet(statusCode, timeout);
+}
 
-int32_t CCurlHelper::Test(CString url)
+int CCurlHelper::HttpPost(CString url, string& response, string requestBody, long& statusCode, string contenttype, int timeout)
+{
+	CCurlClient client(url);
+	return client.HttpPost(response, requestBody, statusCode, contenttype, timeout);
+}
+
+BOOL CCurlHelper::HttpUploadFiles(CString url, string& response, std::map<CString, CString>& args, CString file)
+{
+	//还未实现
+	return FALSE;
+}
+
+int32_t CCurlHelper::TestPost(CString url)
 {
 	CCurlClient client(url);
 	return client.TestPost();
 }
 
-int32_t CCurlHelper::TestDLFile(CString url, CString localPath)
+int32_t CCurlHelper::TestDLFile(CString url, CString localSaveFile)
 {
 	CCurlClient client(url);
-	return client.TestDLFile(localPath);
+	return client.TestDLFile(localSaveFile);
 }
