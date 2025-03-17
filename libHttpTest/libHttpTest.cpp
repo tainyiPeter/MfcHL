@@ -157,9 +157,9 @@ void test_dlfile()
 	//int32_t ret = CCurlHelper::TestDLFile(url, localPath);
 }
 
-void test_http()
+//测试lz授权
+void test_lz_auth()
 {
-	
 	std::string strResponse;
 	long status = 0;
 	//授权测试
@@ -179,15 +179,92 @@ void test_http()
 	cout << "ret:" << ret << " status:"<<status << endl;
 }
 
+//获取列表
+void test_lz_getlist()
+{
+	std::string url = "https://cloud-pay.mbgtest.lenovomm.com/cloud-legionzone/api/v1/getClassifyList";
+
+	std::vector<std::tuple<std::string, std::string>> vecParam =
+	{
+		std::make_tuple("appId", appId),
+		std::make_tuple("nonce", UtilsTools::GetUUID()),
+		std::make_tuple("sign_type", "RSA2"),
+		std::make_tuple("timestamp", UtilsString::ConvertUint64ToString(UtilsTools::GetTimestampMs())),
+	};
+
+	std::string strSign = OpenSSLHelp::LzParamSign(vecParam);
+	strSign = UtilsTools::UrlEncode(strSign);
+	vecParam.push_back(std::make_tuple("sign", strSign));
+
+	url += "?";
+	size_t size = vecParam.size();
+	int idx = 0;
+	for (auto iter : vecParam)
+	{
+		url += std::get<0>(iter);
+		url += "=";
+		url += std::get<1>(iter);
+		if (++idx < size)
+		{
+			url += "&";
+		}
+	}
+	std::string strResponse;
+	long status = 0;
+	int ret = CCurlHelper::HttpGet(url.c_str(), strResponse, status);
+
+	cout << "rsp:" << strResponse.c_str() << endl;
+	cout << "ret:" << ret << " status:" << status << endl;
+}
+
+//获取素材
+void test_lz_getdata(uint32_t cID, uint32_t pageIdx, uint32_t pageSize)
+{
+	std::string url = "https://cloud-pay.mbgtest.lenovomm.com/cloud-legionzone/api/v1/getClassifyDatas";
+	std::vector<std::tuple<std::string, std::string>> vecParam =
+	{
+		std::make_tuple("appId", appId),
+		std::make_tuple("nonce", UtilsTools::GetUUID()),
+		std::make_tuple("sign_type", "RSA2"),
+		std::make_tuple("timestamp", UtilsString::ConvertUint64ToString(UtilsTools::GetTimestampMs())),
+		std::make_tuple("classifyId", UtilsString::ConvertUint64ToString(cID)),
+		std::make_tuple("page", UtilsString::ConvertUint64ToString(pageIdx)),
+		std::make_tuple("pageSize", UtilsString::ConvertUint64ToString(pageSize)),
+	};
+	std::string strSign = OpenSSLHelp::LzParamSign(vecParam);
+	strSign = UtilsTools::UrlEncode(strSign);
+	vecParam.push_back(std::make_tuple("sign", strSign));
+
+	url += "?";
+	size_t size = vecParam.size();
+	int idx = 0;
+	for (auto iter : vecParam)
+	{
+		url += std::get<0>(iter);
+		url += "=";
+		url += std::get<1>(iter);
+		if (++idx < size)
+		{
+			url += "&";
+		}
+	}
+	std::string strResponse;
+	long status = 0;
+	int ret = CCurlHelper::HttpGet(url.c_str(), strResponse, status);
+
+	cout << "rsp:" << strResponse.c_str() << endl;
+	cout << "ret:" << ret << " status:" << status << endl;
+}
+
 int main()
 {
-
 	//int CCurlHelper::HttpGet(CString url, string & response, long& statusCode, int timeout)
 
 	//std::string strTmp = UtilsString::FormatString("%s===%s", "abc", "def");
 	//test_sha();
 
-	test_http();
+	//test_lz_getlist();
+	test_lz_getdata(303, 1, 10);
 
 	cout << "main exit" << endl;
 	return 0;

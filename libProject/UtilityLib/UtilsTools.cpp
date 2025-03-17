@@ -9,6 +9,8 @@
 #include <lm.h>
 
 #pragma comment(lib, "Netapi32.lib")
+#pragma comment(lib, "Rpcrt4.lib")
+
 
 uint64_t UtilsTools::GetTimestampMs()
 {

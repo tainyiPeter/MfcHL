@@ -1,17 +1,4 @@
 #include "OpenSSLHelp.h"
-
-//#include "include/openssl/evp.h"
-//#include "include/openssl/ossl_typ.h"
-//#include "include/openssl/rsa.h"
-//#include "include/openssl/pem.h"
-//#include "include/openssl/evp_local.h"
-
-//#include "D:/mywork/MfcHL/libProject/openssl_sdk/include/openssl/sha.h"
-
-//#include <openssl/evp.h>
-//#include <openssl/pem.h>
-//#include <openssl/err.h>
-
 #include "openssl/evp.h"
 #include "openssl/ossl_typ.h"
 #include "openssl/rsa.h"
@@ -19,11 +6,18 @@
 #include "openssl/err.h"
 
 #include <windows.h>
+#include <algorithm>
 
 //#pragma comment(lib,"ws2_32.lib")
 #if _MSC_VER >= 1400 // VC++ 8.0
 #pragma warning( disable : 4996 )   // disable warning about strdup being deprecated.
 #endif
+
+
+static const std::string base64_chars =
+"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+"abcdefghijklmnopqrstuvwxyz"
+"0123456789+/";
 
 // ¥Ú”°¥ÌŒÛ–≈œ¢
 void print_errors() {
@@ -136,7 +130,6 @@ std::string OpenSSLHelp::urlsafe_base64_encode(const char* bytes_to_encode, unsi
 		*it = b64_to_safe(*it);
 	}
 	return b64_encode;
-
 }
 
 std::string OpenSSLHelp::PrikeySign(const std::string& cipherText, bool urlEncode)
@@ -197,10 +190,6 @@ std::string OpenSSLHelp::PrikeySign(const std::string& cipherText, bool urlEncod
 	return strRet;
 }
 
-static const std::string base64_chars =
-"ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-"abcdefghijklmnopqrstuvwxyz"
-"0123456789+/";
 
 std::string OpenSSLHelp::base64_encode(const char* bytes_to_encode, int in_len)
 {
@@ -250,4 +239,29 @@ std::string OpenSSLHelp::base64_encode(const char* bytes_to_encode, int in_len)
 	}
 
 	return ret;
+}
+
+std::string OpenSSLHelp::LzParamSign(std::vector<std::tuple<std::string, std::string>>& vecData)
+{
+	std::string strContent;
+	std::sort(vecData.begin(), vecData.end(), [](auto first, auto& second)
+		{
+			return std::get<0>(first).compare(std::get<0>(second)) < 0;
+		});
+
+	uint32_t idx = 0;
+	for (auto iter : vecData)
+	{
+		strContent += std::get<0>(iter);
+		strContent += "=";
+		strContent += std::get<1>(iter);
+		++idx;
+		if (idx < vecData.size())
+		{
+			strContent += "&";
+		}
+	}
+
+	strContent = PrikeySign(strContent, true);
+	return strContent;
 }
