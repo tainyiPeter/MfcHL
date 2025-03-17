@@ -136,3 +136,23 @@ std::string UtilsString::ConvertUint64ToString(uint64_t n64Value)
 	sprintf_s(buf, u8"%I64u", n64Value);
 	return buf;
 }
+
+std::string UtilsString::BuildHttpBody(std::vector<std::tuple<std::string, std::string>>& vecData)
+{
+	std::string strBody;
+	bool bFirst = true;
+	for (auto iter : vecData)
+	{
+		if (bFirst)
+		{
+			strBody += FormatString("%s=%s", std::get<0>(iter).c_str(), std::get<1>(iter).c_str());
+			bFirst = false;
+		}
+		else
+		{
+			strBody += FormatString("&%s=%s", std::get<0>(iter).c_str(), std::get<1>(iter).c_str());
+		}
+	}
+
+	return strBody;
+}

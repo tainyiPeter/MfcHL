@@ -31,7 +31,7 @@ int CCurlHelper::HttpGet(const CString& url, long& statusCode, int timeout)
 int CCurlHelper::HttpPost(CString url, string& response, string requestBody, long& statusCode, string contenttype, int timeout)
 {
 	CCurlClient client(url);
-	return client.HttpPost(response, requestBody, statusCode, contenttype, timeout);
+	return client.HttpPost(response, statusCode, contenttype, requestBody, timeout);
 }
 
 BOOL CCurlHelper::HttpUploadFiles(CString url, string& response, std::map<CString, CString>& args, CString file)

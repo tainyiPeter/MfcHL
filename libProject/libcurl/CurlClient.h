@@ -1,11 +1,26 @@
 #pragma once
 
 #include <string>
+#include <vector>
+#include <tuple>
 #include <functional>
 #include <atlstr.h>
 #include <curl/curl.h>
 
-using namespace std;
+#define HTTP_ERROR_UNKNOW			99
+#define HTTP_ERROR_FILELENGTH		100		//100 获取不到长度
+#define HTTP_ERROR_OPENFILE			101		//文件无法打开
+#define HTTP_ERROR_CURINIT_FAILED	102		//102 curl 初始化失败
+#define HTTP_ERROR_CANELED			103		//取消下载
+#define HTTP_ERROR_SETTINGS			104		//获取文件大小的时候 设置失败
+#define HTTP_ERROR_GET_LENGTH		105		//获取文件大小的时候 执行失败
+#define HTTP_ERROR_GET_INFO_FAILED	106		//curl_easy_getinfo 获取大小失败
+#define HTTP_ERROR_CURSET_FAILED	107		//107 设置失败
+#define HTTP_ERROR_DWONLOAD_ERROR	108
+#define HTTP_ERROR_FILENAME_NONE	109
+
+#define CURL_CANCEL_NODATA			9998	//兼容腾讯续传失败的情况 5秒尝试
+#define CURL_CANCEL_NET_NODATA		9999	//兼容下载过程中，网络终端 10秒尝试
 
 class CCurlClient 
 {
@@ -14,11 +29,14 @@ public:
 
 	~CCurlClient();
 
-	int HttpGet(string& response, long& statusCode, int timeout);
+	uint32_t AddHeader(const std::string& strName, const std::string& strValue);
+	uint32_t AddParam(const std::string& strName, const std::string& strValue);
+
+	int HttpGet(std::string& response, long& statusCode, int timeout);
 
 	int HttpGet(long& statusCode, int timeout);
 
-	int HttpPost(string& response, string requestBody, long& statusCode, string contenttype, int timeout);
+	int HttpPost(std::string& response, long& statusCode, const std::string& requestHeader, const std::string& requestBody, int timeout);
 
 	BOOL DownloadFile(CString localPath, BOOL breakContinue = FALSE, std::function<void(INT64 complete, INT64 totle, double speed)> progressCallback = NULL);
 
@@ -39,7 +57,7 @@ public:
 private:
 	long GetDownloadFileLength();
 	CString GetDownloadFileName();
-	CString GetFileNameByUrl(string url);
+	CString GetFileNameByUrl(const std::string& url);
 	UINT64 GetFileSize(const CString& FilePath);
 public:
 	BOOL m_canceled = FALSE;
@@ -48,6 +66,8 @@ public:
 	int m_connectTimeout;
 
 	void* m_curHandle;
+	std::vector<std::tuple<std::string, std::string>>	m_vecHeaders;	//优先使用
+	std::vector<std::tuple<std::string, std::string>>	m_vecParams;	//优先使用
 	CString m_downloadDictory;
 	CString m_downloadFilePath;
 
@@ -71,17 +91,4 @@ struct Curl_Progress_User_Data
 };
 
 
-#define HTTP_ERROR_UNKNOW			99
-#define HTTP_ERROR_FILELENGTH		100		//100 获取不到长度
-#define HTTP_ERROR_OPENFILE			101		//文件无法打开
-#define HTTP_ERROR_CURINIT_FAILED	102		//102 curl 初始化失败
-#define HTTP_ERROR_CANELED			103		//取消下载
-#define HTTP_ERROR_SETTINGS			104		//获取文件大小的时候 设置失败
-#define HTTP_ERROR_GET_LENGTH		105		//获取文件大小的时候 执行失败
-#define HTTP_ERROR_GET_INFO_FAILED	106		//curl_easy_getinfo 获取大小失败
-#define HTTP_ERROR_CURSET_FAILED	107		//107 设置失败
-#define HTTP_ERROR_DWONLOAD_ERROR	108
-#define HTTP_ERROR_FILENAME_NONE	109
 
-#define CURL_CANCEL_NODATA			9998	//兼容腾讯续传失败的情况 5秒尝试
-#define CURL_CANCEL_NET_NODATA		9999	//兼容下载过程中，网络终端 10秒尝试

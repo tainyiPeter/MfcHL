@@ -6,6 +6,7 @@
 #include <string>
 #include <set>
 #include <vector>
+#include <tuple>
 
 class UtilsString
 {
@@ -75,4 +76,8 @@ public:
 	static std::wstring ConverToLower(const std::wstring& src);
 
 	static std::string ConvertUint64ToString(uint64_t n64Value);
+
+	/** 合并多个
+	*/
+	static std::string BuildHttpBody(std::vector<std::tuple<std::string, std::string>>& vecData);
 };

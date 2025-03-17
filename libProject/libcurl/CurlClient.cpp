@@ -5,10 +5,11 @@
 #include <vector>
 #include <string>
 #include <iostream>
-
 #include <algorithm>
 #include <atlconv.h>
-using namespace std;
+
+#include "UtilsString.h"
+
 
 CCurlClient::CCurlClient(CString url) :m_connectTimeout(10)
 {
@@ -18,6 +19,18 @@ CCurlClient::CCurlClient(CString url) :m_connectTimeout(10)
 CCurlClient::~CCurlClient()
 {
 	int index = 0;
+}
+
+uint32_t CCurlClient::AddHeader(const std::string& strName, const std::string& strValue)
+{
+	m_vecHeaders.push_back(std::make_pair(strName, strValue));
+	return m_vecHeaders.size();
+}
+
+uint32_t CCurlClient::AddParam(const std::string& strName, const std::string& strValue)
+{
+	m_vecParams.push_back(std::make_pair(strName, strValue));
+	return m_vecParams.size();
 }
 
 //续传的时间如果超过5秒还没有返回，则尝试重新下载
@@ -39,8 +52,6 @@ typedef enum
 }Http_Client_Response;
 
 typedef void(*progress_info_callback)(void* userdata, double downloadSpeed, double remainingTime, double progressPercentage);
-
-
 
 p_off_t getLocalFileLength(string path)
 {
@@ -144,7 +155,7 @@ CString CCurlClient::GetDownloadFileName()
 	return  fileName.Trim();
 }
 
-CString CCurlClient::GetFileNameByUrl(string url)
+CString CCurlClient::GetFileNameByUrl(const std::string& url)
 {
 	CString strUrl;
 	strUrl = CA2T(url.c_str(), CP_UTF8); 
@@ -491,7 +502,7 @@ size_t lib_cur_receive_data_callback(void* contents, size_t size, size_t nmemb, 
 	return size * nmemb;
 }
 
-int CCurlClient::HttpGet(string& response, long& statusCode, int timeout)
+int CCurlClient::HttpGet(std::string& response, long& statusCode, int timeout)
 {
 	int ret = CURLE_OK;
 	CURL* easy_handle = curl_easy_init();
@@ -546,8 +557,7 @@ int CCurlClient::HttpGet(long& statusCode, int timeout)
 	return ret;
 }
 
-//此方法暂时还未测试
-int CCurlClient::HttpPost(string& response, string requestBody, long& statusCode, string contenttype, int timeout)
+int CCurlClient::HttpPost(std::string& response, long& statusCode, const std::string& requestHeader, const std::string& requestBody, int timeout)
 {
 	int ret = CURLE_OK;
 
@@ -558,13 +568,35 @@ int CCurlClient::HttpPost(string& response, string requestBody, long& statusCode
 		return CURLE_FAILED_INIT;
 	}
 
+	//添加header
 	struct curl_slist* headers = NULL;
-	headers = curl_slist_append(headers, contenttype.c_str());
+	if (!m_vecHeaders.empty())
+	{
+		//优先使用 m_vecHeaders
+		for (auto& it : m_vecHeaders)
+		{
+			std::string strHeader = UtilsString::FormatString("%s:%s", std::get<0>(it), std::get<1>(it));
+			headers = curl_slist_append(headers, requestHeader.c_str());
+		}
+	}
+	else
+	{
+		headers = curl_slist_append(headers, requestHeader.c_str());
+	}
+
+	//添加params
+	std::string strBody = requestBody;
+	if (!m_vecParams.empty())
+	{
+		//优先使用 m_vecParams
+		strBody = UtilsString::BuildHttpBody(m_vecParams);
+	}
 
 	ret |= curl_easy_setopt(easy_handle, CURLOPT_URL, m_url.c_str());
+	ret |= curl_easy_setopt(easy_handle, CURLOPT_SSL_VERIFYPEER, 0L);
 	ret |= curl_easy_setopt(easy_handle, CURLOPT_POST, 1L);
 	ret |= curl_easy_setopt(easy_handle, CURLOPT_HTTPHEADER, headers);
-	ret |= curl_easy_setopt(easy_handle, CURLOPT_POSTFIELDS, requestBody.c_str());
+	ret |= curl_easy_setopt(easy_handle, CURLOPT_POSTFIELDS, strBody.c_str());
 	ret |= curl_easy_setopt(easy_handle, CURLOPT_TIMEOUT, timeout);
 	ret |= curl_easy_setopt(easy_handle, CURLOPT_WRITEFUNCTION, lib_cur_receive_data_callback);
 	ret |= curl_easy_setopt(easy_handle, CURLOPT_WRITEDATA, (void*)&response);
@@ -604,11 +636,7 @@ int32_t  CCurlClient::TestPost()
 	int statusCode = 0;
 	int32_t timeout = 30;
 	std::string requestBody = CalcCheckData(vecData);
-
 	const char* postData = "grant_type=client_credentials&client_id=1593389727517312&client_secret=d248f803532a4d009c4bdecfb5bcd5cc";
-
-	
-
 	std::string response;
 	CURL* easy_handle = curl_easy_init();
 	if (easy_handle == NULL)

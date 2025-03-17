@@ -127,8 +127,9 @@ void test_sha()
 	}
 }
 
-int main()
+void test_dlfile()
 {
+
 	std::string response;
 	long sCode = 0;
 	CString localPath = "d:\\tmp123";
@@ -146,20 +147,48 @@ int main()
 	url = "https://guanjia.lenovo.com.cn/download/lenovopcmanager_apps.exe";
 	//int32_t ret = CCurlHelper::DownloadFile(url, localPath);
 
-
-	int32_t ret = CCurlHelper::DownloadFile(url, localPath, TRUE, [](int64_t done, int64_t total, double speed) 
+	int32_t ret = CCurlHelper::DownloadFile(url, localPath, TRUE, [](int64_t done, int64_t total, double speed)
 		{
-		cout << "done:" << done << " total:" << total << " speed:" << speed << endl;
+			cout << "done:" << done << " total:" << total << " speed:" << speed << endl;
 		});
 
+	cout << "finish ..." << endl;
 
 	//int32_t ret = CCurlHelper::TestDLFile(url, localPath);
-	int i = 0;
-	cin >> i;
+}
+
+void test_http()
+{
+	
+	std::string strResponse;
+	long status = 0;
+	// ⁄»®≤‚ ‘
+	CString url = "https://cloud-pay.mbgtest.lenovomm.com/cloud-auth/oauth/token";
+
+	std::vector<std::tuple<std::string, std::string>> vecData =
+	{
+		std::make_tuple("grant_type", "client_credentials"),
+		std::make_tuple("client_id", "1593389727517312"),
+		std::make_tuple("client_secret", "d248f803532a4d009c4bdecfb5bcd5cc")
+	};
+	std::string strBody = UtilsString::BuildHttpBody(vecData);
+	std::string strContent = "Content-Type: application/x-www-form-urlencoded";
+	int ret = CCurlHelper::HttpPost(url, strResponse, strBody, status, strContent);
+
+	cout << "rsp:" << strResponse.c_str() << endl;
+	cout << "ret:" << ret << " status:"<<status << endl;
+}
+
+int main()
+{
+
 	//int CCurlHelper::HttpGet(CString url, string & response, long& statusCode, int timeout)
 
 	//std::string strTmp = UtilsString::FormatString("%s===%s", "abc", "def");
 	//test_sha();
 
+	test_http();
+
+	cout << "main exit" << endl;
 	return 0;
 }
