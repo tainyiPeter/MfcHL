@@ -39,6 +39,9 @@
     <ClInclude Include="OpenSSLHelp.h">
       <Filter>Src</Filter>
     </ClInclude>
+    <ClInclude Include="GpuHelper.h">
+      <Filter>Src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="UtilityLib.cpp">
@@ -57,6 +60,9 @@
       <Filter>Src</Filter>
     </ClCompile>
     <ClCompile Include="OpenSSLHelp.cpp">
+      <Filter>Src</Filter>
+    </ClCompile>
+    <ClCompile Include="GpuHelper.cpp">
       <Filter>Src</Filter>
     </ClCompile>
   </ItemGroup>
