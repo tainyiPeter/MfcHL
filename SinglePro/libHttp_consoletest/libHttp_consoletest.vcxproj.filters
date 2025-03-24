@@ -1,0 +1,195 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="HttpHelper">
+      <UniqueIdentifier>{3737189f-8107-46b2-8e07-0376c59b72ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility">
+      <UniqueIdentifier>{de397f12-2244-4c6d-8f54-8abfaf1aa8ff}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="libHttp_consoletest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpHelper\HttpWebRequest.cpp">
+      <Filter>HttpHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\CStringHelper.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpHelper\HttpClientSession.cpp">
+      <Filter>HttpHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpHelper\HttpPostArgument.cpp">
+      <Filter>HttpHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpHelper\HttpResponseHeaders.cpp">
+      <Filter>HttpHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpHelper\WebRequest.cpp">
+      <Filter>HttpHelper</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\CUUID.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\FileHelper.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\FileVersion.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="HttpHelper\HttpHelper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\AutoBuffer.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\Condition.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\Monitor.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\threadpool.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\Tool.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\CSyncWindow.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\GlobalTimer.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\MsgHandlerWnd.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\Version.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\log.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\Registry.cpp">
+      <Filter>utility</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="utility\auxtools.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpHelper\HttpWebRequest.h">
+      <Filter>HttpHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\shared_ptr.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\UsableValue.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\CStringHelper.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpHelper\HttpClientSession.h">
+      <Filter>HttpHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpHelper\HttpPostArgument.h">
+      <Filter>HttpHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpHelper\HttpResponseHeaders.h">
+      <Filter>HttpHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\CUUID.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpHelper\WebRequest.h">
+      <Filter>HttpHelper</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\FileHelper.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\FileVersion.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="HttpHelper\HttpHelper.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\AutoBuffer.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\LibThread.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\threadT.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Any.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\AsyncFuncCall.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\sigslot.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\tuples.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\EventHandler.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Condition.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Monitor.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\threadpool.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Tool.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\CSyncWindow.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\GlobalTimer.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\MsgHandlerWnd.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Runnable.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\DataDefine.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Version.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\log.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Log.hpp">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\Registry.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
