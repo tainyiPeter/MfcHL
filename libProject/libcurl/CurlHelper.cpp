@@ -22,6 +22,12 @@ int CCurlHelper::HttpGet(CString url, string& response, long& statusCode, int ti
 	return client.HttpGet(response, statusCode, timeout);
 }
 
+int CCurlHelper::HttpGetTest()
+{
+	CCurlClient client("");
+	return client.HttpGetTest();
+}
+
 int CCurlHelper::HttpGet(const CString& url, long& statusCode, int timeout)
 {
 	CCurlClient client(url);

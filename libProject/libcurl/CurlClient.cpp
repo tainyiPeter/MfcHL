@@ -10,6 +10,7 @@
 
 #include "UtilsString.h"
 
+using namespace std;
 
 CCurlClient::CCurlClient(CString url) :m_connectTimeout(10)
 {
@@ -555,6 +556,109 @@ int CCurlClient::HttpGet(long& statusCode, int timeout)
 	curl_easy_getinfo(easy_handle, CURLINFO_RESPONSE_CODE, &statusCode);
 	curl_easy_cleanup(easy_handle);
 	return ret;
+}
+
+// 定义一个结构体来存储响应数据
+struct ResponseData {
+    char* data;   // 存储响应数据的指针
+    size_t size;  // 响应数据的大小
+};
+
+int CCurlClient::HttpGetTest()
+{
+	std::string url = "https://gms-test.service.lenovo.com/game/api/getClassifyList";
+	//url = "https://www.google.com";
+	//url = "https://www.baidu.com";
+
+    CURL* curl;
+    CURLcode res;
+
+    // 初始化 libcurl
+    curl_global_init(CURL_GLOBAL_DEFAULT);
+
+    // 创建一个 CURL 句柄
+    curl = curl_easy_init();
+    if (curl) {
+		int ret = curl_easy_setopt(curl, CURLOPT_PROXY, "127.0.0.1:7897");
+        //curl_easy_setopt(curl, CURLOPT_PROXYTYPE, CURLPROXY_SOCKS5);
+
+		//int ret = curl_easy_setopt(curl, CURLOPT_PROXY, "");
+
+        // 设置请求的 URL
+        curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
+
+        // 创建一个自定义的 Header 列表
+        struct curl_slist* headers = NULL;
+        headers = curl_slist_append(headers, "devAppId: 6686088440bb48cd19f3f245");
+		headers = curl_slist_append(headers, "Accept: application/json");
+        headers = curl_slist_append(headers, "Content-Type: application/oct-stream");
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+
+		//int ret = curl_easy_setopt(curl, CURLOPT_PROXY, "https://127.0.0.1:7897");
+
+        //curl_easy_setopt(curl, CURLOPT_PROXY, "127.0.0.1:7897");
+        //curl_easy_setopt(curl, CURLOPT_PROXYTYPE, CURLPROXY_HTTPS2);
+
+
+
+		
+
+
+		curl_easy_setopt(curl, CURLOPT_TIMEOUT, 10);
+		//curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L);
+
+        curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, false);//不验证ssl证书。
+        //curl_easy_setopt(curl, CURLOPT_SSL_VERIFYHOST, false);//设置libcurl不验证host。忽略host验证必须同时忽略ssl证书验证。
+
+
+		//{"Content-Type", "application/oct-stream"}
+        //// 初始化响应数据结构
+        //struct ResponseData response;
+        //response.data = (char*) malloc(1); // 初始分配 1 字节
+        //response.size = 0;
+
+        // 设置回调函数以捕获响应数据
+        //curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteCallback);
+        //curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+		std::string response;
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, lib_cur_receive_data_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);
+
+        //curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, lib_cur_receive_data_callback);
+        //curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void*)&response);
+
+        // 执行请求
+        res = curl_easy_perform(curl);
+
+        // 检查请求是否成功
+        if (res != CURLE_OK)		
+		{
+			cout << "--------------------------------------------------------------" << endl;
+            fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+        }
+        else 
+		{
+            // 打印响应数据
+			cout << "===============================================================" << endl;
+			cout << response.c_str() << endl;
+           // printf("Response data:\n%s\n", response.c_str());
+        }
+
+        // 清理响应数据
+        //free(response.data);
+
+        // 清理自定义 Header 列表
+        curl_slist_free_all(headers);
+
+        // 清理 CURL 句柄
+        curl_easy_cleanup(curl);
+    }
+
+    // 清理 libcurl
+    curl_global_cleanup();
+
+    return 0;
 }
 
 int CCurlClient::HttpPost(std::string& response, long& statusCode, const std::string& requestHeader, const std::string& requestBody, int timeout)

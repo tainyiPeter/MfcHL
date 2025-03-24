@@ -35,6 +35,7 @@ public:
 	int HttpGet(std::string& response, long& statusCode, int timeout);
 
 	int HttpGet(long& statusCode, int timeout);
+	int HttpGetTest();
 
 	int HttpPost(std::string& response, long& statusCode, const std::string& requestHeader, const std::string& requestBody, int timeout);
 

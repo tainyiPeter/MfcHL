@@ -256,6 +256,11 @@ void test_lz_getdata(uint32_t cID, uint32_t pageIdx, uint32_t pageSize)
 	cout << "ret:" << ret << " status:" << status << endl;
 }
 
+void test_ls_getlist()
+{
+	CCurlHelper::HttpGetTest();
+}
+
 int main()
 {
 	//int CCurlHelper::HttpGet(CString url, string & response, long& statusCode, int timeout)
@@ -264,8 +269,10 @@ int main()
 	//test_sha();
 
 	//test_lz_getlist();
-	test_lz_getdata(303, 1, 10);
+	//test_lz_getdata(303, 1, 10);
 
-	cout << "main exit" << endl;
+	test_ls_getlist();
+
+	cout << "\nmain exit" << endl;
 	return 0;
 }

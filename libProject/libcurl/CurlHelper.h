@@ -19,6 +19,8 @@ public:
 
 	static int HttpGet(CString url, string& response, long& statusCode, int timeout = CUL_REQUEST_DEFAULT_TIMEOUT);
 
+	static int HttpGetTest();
+
 	// 禁用302的get请求,仅用于ASE报数
 	static int HttpGet(const CString& url, long& statusCode, int timeout = CUL_REQUEST_DEFAULT_TIMEOUT);
 
