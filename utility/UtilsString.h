@@ -78,4 +78,6 @@ public:
 
 	static std::wstring GetFileName(const std::wstring& strFileName);
 	static std::wstring GetFileNameNoExt(const std::wstring& strFileName);
+
+	static std::string unescape_unicode(const std::string& str);
 };

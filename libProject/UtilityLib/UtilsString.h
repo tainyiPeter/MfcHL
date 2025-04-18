@@ -80,4 +80,6 @@ public:
 	/** 合并多个
 	*/
 	static std::string BuildHttpBody(std::vector<std::tuple<std::string, std::string>>& vecData);
+
+
 };

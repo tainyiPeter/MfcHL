@@ -1,5 +1,5 @@
 ﻿#include "UtilsString.h"
-
+#include <sstream>
 #include <algorithm>
 
 std::wstring UtilsString::FormatIntToString(int64_t* hlOffsetMs, uint32_t cnt)
@@ -144,4 +144,37 @@ std::wstring UtilsString::GetFileNameNoExt(const std::wstring& strFileName)
 
 	strName = strName.substr(0, pos);
 	return strName;
+}
+
+std::string UtilsString::unescape_unicode(const std::string& str)
+{
+	std::string result;
+	for (size_t i = 0; i < str.size();) {
+		if (str[i] == '\\' && i + 1 < str.size() && str[i + 1] == 'u') {
+			// 提取4位十六进制
+			unsigned int code;
+			std::stringstream ss;
+			ss << std::hex << str.substr(i + 2, 4);
+			ss >> code;
+
+			// 转换为UTF-8
+			if (code <= 0x7F) {
+				result += static_cast<char>(code);
+			}
+			else if (code <= 0x7FF) {
+				result += static_cast<char>(0xC0 | (code >> 6));
+				result += static_cast<char>(0x80 | (code & 0x3F));
+			}
+			else if (code <= 0xFFFF) {
+				result += static_cast<char>(0xE0 | (code >> 12));
+				result += static_cast<char>(0x80 | ((code >> 6) & 0x3F));
+				result += static_cast<char>(0x80 | (code & 0x3F));
+			}
+			i += 6;
+		}
+		else {
+			result += str[i++];
+		}
+	}
+	return result;
 }

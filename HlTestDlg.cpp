@@ -506,7 +506,9 @@ void CHlTestDlg::DoAction(const std::string& strAction, const std::string& strJs
 	AppendMsg(strActionW);
     char szResponse[10240] = { 0 };
     int ret = seinvoke_send(ModuleId, strAction.c_str(), strJson.c_str(), szResponse, 10240);
-	m_strOutput = Utility::utf8_2_unicode(szResponse).c_str();
+
+	std::string strUtf8 = UtilsString::unescape_unicode(szResponse);
+	m_strOutput = Utility::utf8_2_unicode(strUtf8.c_str()).c_str();
 	UpdateData(FALSE);
 }
 
